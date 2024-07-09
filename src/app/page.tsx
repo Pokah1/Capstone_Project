@@ -11,6 +11,7 @@ const HomePage = () =>{
      
       <Link href={'/form'}><button>To assess more, Register</button></Link>
      
+      <Link href={'/home-redirect'}><button>To Dashboard</button></Link>
       </div>
   )
 }

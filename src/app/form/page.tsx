@@ -8,6 +8,7 @@ import appleLogo from '@/assets/apple.svg';
 import googleLogo from '@/assets/google.svg';
 import linkedinLogo from '@/assets/linkedin.svg';
 import Image from 'next/image';
+import {signInWithEmail, signUpWithEmail} from '@/lib/auth'
 
 const Form = () => {
   const [showSignUp, setShowSignUp] = useState(false);
@@ -33,17 +34,46 @@ const Form = () => {
     setShowSignUp(true);
   };
 
-  const handleSignIn = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSignIn =async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('Sign in');
-    (event.target as HTMLFormElement).reset();
+    const formData = new FormData(event.currentTarget)
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
+
+    const {data, error} = await signInWithEmail(email, password);
+    if (error) {console.log('Sign in error:', error.message)} else { console.log('Sign in success:', data)
+
+    };
+    // Reset form fields
+    event.currentTarget.reset();
   };
 
-  const handleSignUp = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('Sign up');
-    (event.target as HTMLFormElement).reset();
+  
+    try {
+      const formData = new FormData(event.currentTarget);
+      const email = formData.get('email') as string;
+      const password = formData.get('password') as string;
+  
+      const { data, error } = await signUpWithEmail(email, password);
+  
+      if (error) {
+        console.error('Sign up error:', error.message);
+        // Handle error gracefully, show user-friendly message, etc.
+      } else {
+        console.log('Sign up success:', data);
+        // Reset the form if it exists
+        if (event.target) {
+          (event.target as HTMLFormElement).reset();
+        }
+      }
+    } catch (error) {
+      console.error('Sign up error:', error.message);
+      // Handle error if signUpWithEmail fails
+    }
   };
+  
 
   return (
     <div id="root" className={styles.formContainerWrapper}>
