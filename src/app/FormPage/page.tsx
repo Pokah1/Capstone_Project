@@ -1,14 +1,29 @@
 "use client"; 
 
-import React, { useState } from 'react';
-import styles from '@/app/form/styles.module.css'
+import React, { useState, SVGProps} from 'react';
+import styles from '@/app/FormPage/styles.module.css'
 import supabase from '@/lib/supabaseClients';
 import backgroundImage from '@/assets/background.svg'
-import appleLogo from '@/assets/apple.svg';
+import appleLogo from '@/assets/apple.svg'
+
 import googleLogo from '@/assets/google.svg';
-import linkedinLogo from '@/assets/linkedin.svg';
-import Image from 'next/image';
+
+import gitHubLogo from '@/assets/github.svg';
+
+// import Image from 'next/image';
 import {signInWithEmail, signUpWithEmail} from '@/lib/auth'
+
+type Logos = {
+  logoIcon: React.FC<React.SVGProps<SVGSVGElement>>;
+};
+
+const svgs: Logos[] = [
+  {logoIcon: appleLogo},
+  {logoIcon: googleLogo},
+  {logoIcon: gitHubLogo},
+]
+
+
 
 const Form = () => {
   const [showSignUp, setShowSignUp] = useState(false);
@@ -25,13 +40,23 @@ const Form = () => {
   const googleSignUp = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
+      options: {
+        redirectTo: 'http://localhost:3000/Dashboard', 
+      },
     });
     if (error) console.log('Google sign up error:', error.message);
   };
 
-  const linkedinSignUp = () => {
-    console.log('LinkedIn sign up');
-    setShowSignUp(true);
+  const githubSignUp = async() => {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'github',
+      options: {
+        redirectTo: 'http://localhost:3000/Dashboard', 
+      },
+    })
+    if (error) console.log('GitHub sign up error:', error.message);
+    console.log('github sign up');
+  
   };
 
   const handleSignIn =async (event: React.FormEvent<HTMLFormElement>) => {
@@ -74,7 +99,6 @@ const Form = () => {
     }
   };
   
-
   return (
     <div id="root" className={styles.formContainerWrapper}>
       <div className={styles.container} style={{ backgroundImage: `url(${backgroundImage.src})` }}>
@@ -83,15 +107,11 @@ const Form = () => {
             <form onSubmit={handleSignIn}>
               <h1 className={styles.h1s}>Sign in</h1>
               <div className={styles.socialContainer}>
-                <a href="#" className={styles.social}>
-                  <Image src={appleLogo} alt="Apple logo" onClick={appleSignUp} width={30} height={30} />
-                </a>
-                <a href="#" className={styles.social}>
-                  <Image src={googleLogo} alt="Google logo" onClick={googleSignUp} width={30} height={30} />
-                </a>
-                <a href="#" className={styles.social}>
-                  <Image src={linkedinLogo} alt="LinkedIn logo" onClick={linkedinSignUp} width={30} height={30} />
-                </a>
+                {svgs.map((logo, index) => (
+                  <a href="#" className={styles.social} key={index}>
+                    <logo.logoIcon onClick={logo.logoIcon === appleLogo? appleSignUp: logo.logoIcon === googleLogo ? googleSignUp : githubSignUp } width={30} height={30} />
+                  </a>
+                ))}
               </div>
               <span>or use your account</span>
               <div className={styles.infield}>
@@ -110,15 +130,11 @@ const Form = () => {
             <form onSubmit={handleSignUp}>
               <h1 className={styles.h1s}>Create Account</h1>
               <div className={styles.socialContainer}>
-                <a href="#" className={styles.social}>
-                  <Image src={appleLogo} alt="Apple logo" onClick={appleSignUp} width={30} height={30} />
-                </a>
-                <a href="#" className={styles.social}>
-                  <Image src={googleLogo} alt="Google logo" onClick={googleSignUp} width={30} height={30} />
-                </a>
-                <a href="#" className={styles.social}>
-                  <Image src={linkedinLogo} alt="LinkedIn logo" onClick={linkedinSignUp} width={30} height={30} />
-                </a>
+                {svgs.map((logo, index) => (
+                  <a href="#" className={styles.social} key={index}>
+                    <logo.logoIcon onClick={logo.logoIcon === googleLogo ? googleSignUp : () => handleSignUp} width={30} height={30} />
+                  </a>
+                ))}
               </div>
               <span>or use your email for registration</span>
               <div className={styles.infield}>
@@ -158,6 +174,7 @@ const Form = () => {
       </div>
     </div>
   );
+ 
 };
 
 export default Form;

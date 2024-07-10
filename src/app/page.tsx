@@ -1,19 +1,29 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import Link from "next/link";
+import backgroundImage from '@/assets/homepage.jpg'
 
-const HomePage = () =>{
-  
+const HomePage = () => {
+  const pageStyle = {
+    backgroundImage: `url(${backgroundImage.src})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    minHeight: '100vh',  
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white', 
+  };
+
   return (
-      <div id='root' className={styles.container}>
+    <div id='root' className={styles.container} style={pageStyle}>
       <h1>Welcome</h1>
-      <h3>Take your Writing to another !!!</h3>
-     
-      <Link href={'/form'}><button>To assess more, Register</button></Link>
-     
-      <Link href={'/home-redirect'}><button>To Dashboard</button></Link>
-      </div>
-  )
+      <h3>Take your Writing to another level!</h3>
+      <Link href={'/FormPage'}><button>To access more, Register</button></Link>
+      <Link href={'/Dashboard'}><button>To Dashboard</button></Link>
+    </div>
+  );
 }
 
 export default HomePage;
