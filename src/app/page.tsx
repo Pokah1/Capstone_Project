@@ -2,6 +2,8 @@
 import React from 'react';
 import { useTypewriter, Cursor } from 'react-simple-typewriter';
 import Link from "next/link";
+import Image from 'next/image';
+import Logo from '@/assets/comapnyLogo.png'
 import styles from "./page.module.css"; // Import CSS module
 import Footer from "./componetnts/footer";
 
@@ -14,10 +16,17 @@ const HomePage: React.FC = () => {
   });
 
   return (
+    <>
+
+
     <main id="root" className={styles.container}>
       <article className={styles.pageContainer}>
-       
+      
         <nav className={styles.nav}>
+   
+          <Image src={Logo} alt='companyLogo' className={styles.logo}/>
+     
+       
         <header className={styles.header}>
           <h3>Take your Writing to another level!</h3>
         </header>
@@ -70,9 +79,12 @@ const HomePage: React.FC = () => {
             </Link>
           </p>
         </section>
-        <Footer />
+        
       </article>
+    
     </main>
+      <Footer />
+      </>
   );
 }
 

@@ -6,7 +6,7 @@ import styles from '@/app/componetnts/sideNav.module.css'
 import { User } from '@supabase/supabase-js';
 import supabase from '@/lib/supabaseClients';
 import { useRouter } from 'next/navigation';
-import Logo from '@/app/Dashboard/assets/header.jpg';
+import Logo from '@/assets/comapnyLogo.png';
 import profileImage from '@/app/componetnts/assets/profile-pic.jpg';
 import dashboardIcon from '@/app/Dashboard/assets/dashboard.svg';
 import analyticsIcon from '@/app/Dashboard/assets/analytics.svg';
