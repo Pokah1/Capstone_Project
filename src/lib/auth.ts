@@ -7,28 +7,27 @@ type UserInfo = {
 
 export const signInWithEmail = async (email: string, password: string): Promise<UserInfo> => {
   try {
-    let { data, error }: { data: any; error: any } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
     // Check if 'error' is not null or undefined
-    if (error) {
-      console.error('Sign in error:', error.message);
-      return { data: null, error };
-    } else {
-      console.log('User signed in successfully');
-      return { data, error: null };
-    }
+   if(error){
+     console.error('Sign in error:', error.message);
+     return { data: null, error };
+    } 
+    alert('User signed in successfully');
+     return{ data: null, error}
+ 
   } catch (error: any) {
     console.error('Sign in error:', error.message);
     return { data: null, error: error.message };
-  }
-};
+  }};
 
 export const signUpWithEmail = async (email: string, password: string): Promise<UserInfo> => {
   try {
-    let { data, error }: { data: any; error: any } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
     });
@@ -36,12 +35,11 @@ export const signUpWithEmail = async (email: string, password: string): Promise<
     // Check if 'error' is not null or undefined
     if (error) {
       console.error('Sign up error:', error.message);
-      await new Promise(resolve => setTimeout(resolve, 2000));
       return { data: null, error };
-    } else {
-      console.log('User signed up successfully');
+    } 
+      alert('User signed up successfully');
       return { data, error: null };
-    }
+
   } catch (error: any) {
     console.error('Sign up error:', error.message);
     return { data: null, error: error.message };

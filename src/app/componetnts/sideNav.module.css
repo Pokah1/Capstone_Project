@@ -1,4 +1,4 @@
-/* 
+
 
 .sidebar {
     position: fixed;
@@ -12,6 +12,7 @@
     overflow-x: hidden;
     padding: 25px 20px;
     transition: all 0.4s ease;
+   
 }
 
 .sidebar:hover {
@@ -171,4 +172,4 @@
 .sidebar:hover .userAccount {
     background: #0c0000;
     border-radius: 4px;
-} */
+}

@@ -13,6 +13,14 @@ const nextConfig = {
 
     return config;
   },
+  images: {
+    domains: [
+      'avatars.githubusercontent.com', // GitHub avatars
+      'lh3.googleusercontent.com',     // Google user profiles
+      'appleid.apple.com',             
+     
+    ],
+  },
 };
 
 export default nextConfig;

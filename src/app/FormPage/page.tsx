@@ -1,115 +1,137 @@
-"use client"; 
+"use client";
 
-import React, { useState, SVGProps} from 'react';
-import styles from '@/app/FormPage/styles.module.css'
-import supabase from '@/lib/supabaseClients';
-import backgroundImage from '@/assets/background.svg'
-import appleLogo from '@/assets/apple.svg'
+import React, { useState } from "react";
+import styles from "@/app/FormPage/styles.module.css";
+import supabase from "@/lib/supabaseClients";
 
-import googleLogo from '@/assets/google.svg';
-
-import gitHubLogo from '@/assets/github.svg';
-
-// import Image from 'next/image';
-import {signInWithEmail, signUpWithEmail} from '@/lib/auth'
+import appleLogo from "@/assets/apple.svg";
+import googleLogo from "@/assets/google.svg";
+import gitHubLogo from "@/assets/github.svg";
+import { signInWithEmail, signUpWithEmail } from "@/lib/auth";
 
 type Logos = {
   logoIcon: React.FC<React.SVGProps<SVGSVGElement>>;
 };
 
 const svgs: Logos[] = [
-  {logoIcon: appleLogo},
-  {logoIcon: googleLogo},
-  {logoIcon: gitHubLogo},
-]
-
-
+  { logoIcon: appleLogo },
+  { logoIcon: googleLogo },
+  { logoIcon: gitHubLogo },
+];
 
 const Form = () => {
   const [showSignUp, setShowSignUp] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const toggleForms = () => {
     setShowSignUp((prev) => !prev);
   };
 
   const appleSignUp = () => {
-    console.log('Apple sign up');
-    setShowSignUp(true);
+    console.log("Apple sign up");
+   setShowSignUp(true);
   };
 
   const googleSignUp = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: 'http://localhost:3000/Dashboard', 
-      },
-    });
-    if (error) console.log('Google sign up error:', error.message);
+    setIsSubmitting(true);
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: "http://localhost:3000/Dashboard",
+        },
+      });
+      if (error) console.log("Google sign up error:", error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const githubSignUp = async() => {
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: 'github',
-      options: {
-        redirectTo: 'http://localhost:3000/Dashboard', 
-      },
-    })
-    if (error) console.log('GitHub sign up error:', error.message);
-    console.log('github sign up');
-  
+  const githubSignUp = async () => {
+    setIsSubmitting(true);
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "github",
+        options: {
+          redirectTo: "http://localhost:3000/Dashboard",
+        },
+      });
+      if (error) console.log("GitHub sign up error:", error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const handleSignIn =async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSignIn = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget)
-    const email = formData.get('email') as string
-    const password = formData.get('password') as string
+    setIsSubmitting(true);
+    try {
+      const formData = new FormData(event.currentTarget);
+      const email = formData.get("email") as string;
+      const password = formData.get("password") as string;
 
-    const {data, error} = await signInWithEmail(email, password);
-    if (error) {console.log('Sign in error:', error.message)} else { console.log('Sign in success:', data)
-
-    };
-    // Reset form fields
-    event.currentTarget.reset();
+      const { data, error } = await signInWithEmail(email, password);
+      if (error) {
+        console.log("Sign in error:", error);
+      } else {
+        console.log("Sign in success:", data);
+      }
+      // Reset form fields
+      event.currentTarget.reset();
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-  
+    setIsSubmitting(true);
     try {
       const formData = new FormData(event.currentTarget);
-      const email = formData.get('email') as string;
-      const password = formData.get('password') as string;
-  
+      const email = formData.get("email") as string;
+      const password = formData.get("password") as string;
+
       const { data, error } = await signUpWithEmail(email, password);
-  
       if (error) {
-        console.error('Sign up error:', error.message);
-        // Handle error gracefully, show user-friendly message, etc.
+        console.log("Sign up error:", error);
       } else {
-        console.log('Sign up success:', data);
-        // Reset the form if it exists
-        if (event.target) {
-          (event.target as HTMLFormElement).reset();
-        }
+        console.log("Sign up success:", data);
       }
-    } catch (error) {
-      console.error('Sign up error:', error.message);
-      // Handle error if signUpWithEmail fails
+      // Reset form fields
+      event.currentTarget.reset();
+    } finally {
+      setIsSubmitting(false);
     }
   };
-  
+
   return (
     <div id="root" className={styles.formContainerWrapper}>
-      <div className={styles.container} style={{ backgroundImage: `url(${backgroundImage.src})` }}>
-        <div className={`${styles.formWrapper} ${showSignUp ? styles.showSignUp : ''}`}>
+      <div
+        className={styles.container}
+        
+      >
+        <div
+          className={`${styles.formWrapper} ${
+            showSignUp ? styles.showSignUp : ""
+          }`}
+        >
           <div className={styles.formContainer}>
             <form onSubmit={handleSignIn}>
               <h1 className={styles.h1s}>Sign in</h1>
               <div className={styles.socialContainer}>
                 {svgs.map((logo, index) => (
                   <a href="#" className={styles.social} key={index}>
-                    <logo.logoIcon onClick={logo.logoIcon === appleLogo? appleSignUp: logo.logoIcon === googleLogo ? googleSignUp : githubSignUp } width={30} height={30} />
+                    <logo.logoIcon
+                      onClick={
+                        logo.logoIcon === appleLogo
+                          ? appleSignUp
+                          : logo.logoIcon === googleLogo
+                          ? googleSignUp
+                          : githubSignUp
+                      }
+                      width={30}
+                      height={30}
+                    />
                   </a>
                 ))}
               </div>
@@ -118,12 +140,14 @@ const Form = () => {
                 <input type="email" placeholder="Email" name="email" />
               </div>
               <div className={styles.infield}>
-                <input type="password" placeholder="Password" />
+                <input type="password" placeholder="Password" name="password" />
               </div>
               <a href="#" className={styles.forgot}>
                 Forgot your password?
               </a>
-              <button type="submit" className={styles.submit}>Sign In</button>
+              <button type="submit" className={styles.submit} disabled={isSubmitting}>
+                Sign In
+              </button>
             </form>
           </div>
           <div className={styles.formContainer}>
@@ -132,21 +156,28 @@ const Form = () => {
               <div className={styles.socialContainer}>
                 {svgs.map((logo, index) => (
                   <a href="#" className={styles.social} key={index}>
-                    <logo.logoIcon onClick={logo.logoIcon === googleLogo ? googleSignUp : () => handleSignUp} width={30} height={30} />
+                    <logo.logoIcon
+                      onClick={
+                        logo.logoIcon === googleLogo
+                          ? googleSignUp
+                          : githubSignUp
+                      }
+                      width={30}
+                      height={30}
+                    />
                   </a>
                 ))}
               </div>
-              <span>or use your email for registration</span>
-              <div className={styles.infield}>
-                <input type="text" placeholder="Name" />
-              </div>
+              <span>Signup with Email</span>
               <div className={styles.infield}>
                 <input type="email" placeholder="Email" name="email" />
               </div>
               <div className={styles.infield}>
-                <input type="password" placeholder="Password" />
+                <input type="password" placeholder="Password" name="password" />
               </div>
-              <button type="submit" className={styles.submit}>Sign Up</button>
+              <button type="submit" className={styles.submit} disabled={isSubmitting}>
+                Sign Up
+              </button>
             </form>
           </div>
         </div>
@@ -154,15 +185,23 @@ const Form = () => {
           <div className={styles.overlay}>
             <div className={`${styles.overlayPanel} ${styles.overlayLeft}`}>
               <h1 className={styles.h1s}>Welcome Back!</h1>
-              <p>To keep connected with us please login with your personal info</p>
-              <button className={`${styles.ghost} ${styles.submit}`} onClick={toggleForms}>
+              <p>
+                To keep connected with us please login with your personal info
+              </p>
+              <button
+                className={`${styles.ghost} ${styles.submit}`}
+                onClick={toggleForms}
+              >
                 Sign In
               </button>
             </div>
             <div className={`${styles.overlayPanel} ${styles.overlayRight}`}>
               <h1 className={styles.h1s}>Hello, Friend!</h1>
               <p>Enter your personal details and start journey with us</p>
-              <button className={`${styles.ghost} ${styles.submit}`} onClick={toggleForms}>
+              <button
+                className={`${styles.ghost} ${styles.submit}`}
+                onClick={toggleForms}
+              >
                 Sign Up
               </button>
             </div>
@@ -174,7 +213,7 @@ const Form = () => {
       </div>
     </div>
   );
- 
 };
 
 export default Form;
+

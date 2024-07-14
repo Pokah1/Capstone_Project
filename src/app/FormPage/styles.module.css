@@ -14,8 +14,9 @@
 .formContainerWrapper {
   height: 100vh;
   width: 100VW;
-  /* background: url('../assets/background.svg') no-repeat center center;
-  background-size: cover; */
+  background-image: url('/assets/background.svg'); /* Use the path relative to the public folder */
+  background-size: cover;
+  background-position: center;
   display: flex;
   justify-content: center;
   align-items: center;
