@@ -1,0 +1,46 @@
+/* src/app/analytics/analytics.module.css */
+.analyticsContainer {
+    padding: 20px;
+    background-color: #f8f9fa;
+    text-align: center;
+  }
+  
+  .header {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .overview {
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  .chartsGrid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .chartItem {
+    flex: 1 1 300px;
+    max-width: 400px;
+    background-color: #edefef;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .chartHeader {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .chartItem p {
+    font-size: 1rem;
+    color: #666;
+    margin-top: 10px;
+  }
+  

@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import styles from "@/app/FormPage/styles.module.css";
-import supabase from "@/lib/supabaseClients";
+import supabase from '@/lib/supabaseClients';
 
 import appleLogo from "@/assets/apple.svg";
 import googleLogo from "@/assets/google.svg";
@@ -11,52 +12,37 @@ import { signInWithEmail, signUpWithEmail } from "@/lib/auth";
 
 type Logos = {
   logoIcon: React.FC<React.SVGProps<SVGSVGElement>>;
+  provider: 'apple' | 'google' | 'github';
 };
 
 const svgs: Logos[] = [
-  { logoIcon: appleLogo },
-  { logoIcon: googleLogo },
-  { logoIcon: gitHubLogo },
+  { logoIcon: appleLogo, provider: 'apple' },
+  { logoIcon: googleLogo, provider: 'google' },
+  { logoIcon: gitHubLogo, provider: 'github' },
 ];
 
 const Form = () => {
   const [showSignUp, setShowSignUp] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const router = useRouter();
 
   const toggleForms = () => {
     setShowSignUp((prev) => !prev);
   };
 
-  const appleSignUp = () => {
-    console.log("Apple sign up");
-   setShowSignUp(true);
-  };
-
-  const googleSignUp = async () => {
+  const handleSocialLogin = async (provider: 'apple' | 'google' | 'github') => {
     setIsSubmitting(true);
     try {
       const { error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
+        provider,
         options: {
-          redirectTo: "http://localhost:3000/Dashboard",
+          redirectTo: "http://localhost:3000/dashboard"
         },
       });
-      if (error) console.log("Google sign up error:", error.message);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const githubSignUp = async () => {
-    setIsSubmitting(true);
-    try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: "github",
-        options: {
-          redirectTo: "http://localhost:3000/Dashboard",
-        },
-      });
-      if (error) console.log("GitHub sign up error:", error.message);
+      if (error) {
+        setErrorMessage(error.message);
+      } 
     } finally {
       setIsSubmitting(false);
     }
@@ -65,19 +51,18 @@ const Form = () => {
   const handleSignIn = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage(null);
     try {
       const formData = new FormData(event.currentTarget);
       const email = formData.get("email") as string;
       const password = formData.get("password") as string;
 
-      const { data, error } = await signInWithEmail(email, password);
+      const { user, session, error } = await signInWithEmail(email, password);
       if (error) {
-        console.log("Sign in error:", error);
+        setErrorMessage(error.message);
       } else {
-        console.log("Sign in success:", data);
+        router.push("/dashboard");
       }
-      // Reset form fields
-      event.currentTarget.reset();
     } finally {
       setIsSubmitting(false);
     }
@@ -86,19 +71,19 @@ const Form = () => {
   const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage(null);
     try {
       const formData = new FormData(event.currentTarget);
       const email = formData.get("email") as string;
       const password = formData.get("password") as string;
 
-      const { data, error } = await signUpWithEmail(email, password);
+      const { user, session, error } = await signUpWithEmail(email, password);
       if (error) {
-        console.log("Sign up error:", error);
+        setErrorMessage(error.message);
       } else {
-        console.log("Sign up success:", data);
+        alert('Check your email for the confirmation link!');
+        router.push("/dashboard");
       }
-      // Reset form fields
-      event.currentTarget.reset();
     } finally {
       setIsSubmitting(false);
     }
@@ -106,15 +91,8 @@ const Form = () => {
 
   return (
     <div id="root" className={styles.formContainerWrapper}>
-      <div
-        className={styles.container}
-        
-      >
-        <div
-          className={`${styles.formWrapper} ${
-            showSignUp ? styles.showSignUp : ""
-          }`}
-        >
+      <div className={styles.container}>
+        <div className={`${styles.formWrapper} ${showSignUp ? styles.showSignUp : ""}`}>
           <div className={styles.formContainer}>
             <form onSubmit={handleSignIn}>
               <h1 className={styles.h1s}>Sign in</h1>
@@ -122,13 +100,7 @@ const Form = () => {
                 {svgs.map((logo, index) => (
                   <a href="#" className={styles.social} key={index}>
                     <logo.logoIcon
-                      onClick={
-                        logo.logoIcon === appleLogo
-                          ? appleSignUp
-                          : logo.logoIcon === googleLogo
-                          ? googleSignUp
-                          : githubSignUp
-                      }
+                      onClick={() => handleSocialLogin(logo.provider)}
                       width={30}
                       height={30}
                     />
@@ -145,6 +117,7 @@ const Form = () => {
               <a href="#" className={styles.forgot}>
                 Forgot your password?
               </a>
+              {errorMessage && <div className={styles.error}>{errorMessage}</div>}
               <button type="submit" className={styles.submit} disabled={isSubmitting}>
                 Sign In
               </button>
@@ -157,11 +130,7 @@ const Form = () => {
                 {svgs.map((logo, index) => (
                   <a href="#" className={styles.social} key={index}>
                     <logo.logoIcon
-                      onClick={
-                        logo.logoIcon === googleLogo
-                          ? googleSignUp
-                          : githubSignUp
-                      }
+                      onClick={() => handleSocialLogin(logo.provider)}
                       width={30}
                       height={30}
                     />
@@ -175,6 +144,7 @@ const Form = () => {
               <div className={styles.infield}>
                 <input type="password" placeholder="Password" name="password" />
               </div>
+              {errorMessage && <div className={styles.error}>{errorMessage}</div>}
               <button type="submit" className={styles.submit} disabled={isSubmitting}>
                 Sign Up
               </button>
@@ -197,7 +167,7 @@ const Form = () => {
             </div>
             <div className={`${styles.overlayPanel} ${styles.overlayRight}`}>
               <h1 className={styles.h1s}>Hello, Friend!</h1>
-              <p>Enter your personal details and start journey with us</p>
+              <p>Enter your personal details and start your journey with us</p>
               <button
                 className={`${styles.ghost} ${styles.submit}`}
                 onClick={toggleForms}
@@ -208,7 +178,7 @@ const Form = () => {
           </div>
         </div>
         <footer className={styles.footer}>
-          <p className={styles.special}>forgot password?</p>
+          <p className={styles.special}>Forgot password?</p>
         </footer>
       </div>
     </div>
@@ -216,4 +186,3 @@ const Form = () => {
 };
 
 export default Form;
-

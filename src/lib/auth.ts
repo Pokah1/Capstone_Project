@@ -1,7 +1,8 @@
 import supabase from "./supabaseClients";
 
 type UserInfo = {
-  data: any;
+  user: any;
+  session: any;
   error: any;
 };
 
@@ -12,18 +13,17 @@ export const signInWithEmail = async (email: string, password: string): Promise<
       password,
     });
 
-    // Check if 'error' is not null or undefined
-   if(error){
-     console.error('Sign in error:', error.message);
-     return { data: null, error };
-    } 
-    alert('User signed in successfully');
-     return{ data: null, error}
- 
+    if (error) {
+      console.error('Sign in error:', error.message);
+      return { user: null, session: null, error };
+    }
+    console.log('User signed in successfully:', data);
+    return { user: data.user, session: data.session, error: null };
   } catch (error: any) {
     console.error('Sign in error:', error.message);
-    return { data: null, error: error.message };
-  }};
+    return { user: null, session: null, error: error.message };
+  }
+};
 
 export const signUpWithEmail = async (email: string, password: string): Promise<UserInfo> => {
   try {
@@ -32,16 +32,24 @@ export const signUpWithEmail = async (email: string, password: string): Promise<
       password,
     });
 
-    // Check if 'error' is not null or undefined
     if (error) {
-      console.error('Sign up error:', error.message);
-      return { data: null, error };
-    } 
-      alert('User signed up successfully');
-      return { data, error: null };
-
+      if (error.message.includes('rate limit')) {
+        console.error('Rate limit error:', error.message);
+        alert('You have exceeded the sign-up rate limit. Please try again later.');
+      } else {
+        console.error('Sign up error:', error.message);
+      }
+      return { user: null, session: null, error };
+    }
+    console.log('User signed up successfully:', data);
+    return { user: data.user, session: data.session, error: null };
   } catch (error: any) {
-    console.error('Sign up error:', error.message);
-    return { data: null, error: error.message };
+    if (error.message.includes('rate limit')) {
+      console.error('Rate limit error:', error.message);
+      alert('You have exceeded the sign-up rate limit. Please try again later.');
+    } else {
+      console.error('Sign up error:', error.message);
+    }
+    return { user: null, session: null, error: error.message };
   }
 };

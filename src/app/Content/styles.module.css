@@ -1,0 +1,96 @@
+/* styles/Content.module.css */
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f9f9fb;
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .header h1 {
+    font-size: 2.5rem;
+    color: #240d29;
+    margin-bottom: 10px;
+  }
+  
+  .toDoList, .statsGraph, .calendar {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 20px;
+  }
+  
+  .toDoList h2, .statsGraph h2, .calendar h2 {
+    font-size: 1.8rem;
+    color: #240d29;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #c143da;
+    padding-bottom: 5px;
+  }
+  
+  .toDoList input, .toDoList button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    margin-right: 10px;
+  }
+  
+  .toDoList button {
+    background-color: #240d29;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .toDoList button:hover {
+    background-color: #c143da;
+    transform: scale(1.05);
+  }
+  
+  .toDoListItems {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .toDoListItems li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .toDoListItems li:last-child {
+    border-bottom: none;
+  }
+  
+  .calendarItems {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .calendarItems li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .calendarItems li:last-child {
+    border-bottom: none;
+  }
+  

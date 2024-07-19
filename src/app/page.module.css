@@ -9,6 +9,7 @@
   
 }
 .container {
+  
   background-image: url("/assets/homepage.jpg"); 
   background-size: cover;
   background-position: center;
@@ -18,7 +19,7 @@
   align-items: center;
   justify-content: center;
   color: white;
-  font-family: "Poppins";
+  font-family: "Poppins"n ;
 }
 .pageContainer {
   display: flex;

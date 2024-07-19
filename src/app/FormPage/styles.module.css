@@ -3,15 +3,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 
-
 .formContainerWrapper {
---linear-grad: linear-gradient(to right, #141E30, #243B55);
+  --linear-grad: linear-gradient(to right, #141E30, #243B55);
 --grad-clr1: #141E30;
 --grad-clr2: #243B55;
-}
-
-
-.formContainerWrapper {
   height: 100vh;
   width: 100VW;
   background-image: url('/assets/background.svg'); /* Use the path relative to the public folder */
@@ -81,11 +76,6 @@ height: 40px;
 width: 40px;
 }
 
-
-.social img{
-height: 30px;
-width: 30px;
-}
 .social:hover{
 transform: scale(1.1);
 }
@@ -99,7 +89,7 @@ width: 100%;
 width: 100%;
 padding: 10px;
 margin: 5px 0;
-border: 1px solid #ccc;
+border: 1px solid #9a9191;
 border-radius: 4px;
 background-color: #fff;
 color: #000;
@@ -116,6 +106,7 @@ padding: 12px 45px;
 letter-spacing: 1px;
 text-transform: uppercase;
 transition: transform 80ms ease-in;
+margin: 15px 50px;
 }
 
 .submit:active {
@@ -129,6 +120,7 @@ outline: none;
 button.ghost {
 background-color: transparent;
 border-color: #fff;
+margin-top: 40px;
 }
 
 .overlayContainer {

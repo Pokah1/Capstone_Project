@@ -70,7 +70,7 @@ const HomePage: React.FC = () => {
               </Link>
             </li>
             <button className={styles.signinButton}>
-            <Link href={'/FormPage'} className={styles.signup} >
+            <Link href={'/formpage'} className={styles.signup} >
               Sign-Up
             </Link>
             </button>
@@ -92,12 +92,12 @@ const HomePage: React.FC = () => {
           </p>
           <p>
             Ready to get started?{' '}
-            <Link href={'/FormPage'} className={styles.link}>
+            <Link href={'/formpage'} className={styles.link}>
               Register Now
             </Link>
           </p>
           <p>
-            <Link href={'/Dashboard'} className={styles.link}>
+            <Link href={'/dashboard'} className={styles.link}>
               View Dashboard
             </Link>
           </p>

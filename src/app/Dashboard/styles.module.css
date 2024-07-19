@@ -1,174 +1,178 @@
-/* 
+/* styles/Dashboard.module.css */
 
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 85px;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background: #161a2d;
-    overflow-x: hidden;
-    padding: 25px 20px;
-    transition: all 0.4s ease;
+.dashboard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f9f9fb;
+  color: #333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.sidebar:hover {
-    width: 260px;
+.createContentButton {
+  position: absolute;
+  top: 20px;
+  right: 70px;
+  background-color: #240d29;
+  color: white;
+  font-size: 1rem;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  text-decoration: none;
 }
 
-.sidebarHeader .logo {
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
+.createContentButton:hover {
+  background-color: #c143da;
+  transform: scale(1.05);
 }
 
-.sidebar .sidebarHeader {
-    align-items: center;
-    display: flex;
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+  text-align: center;
 }
 
-.sidebar .sidebarHeader h2 {
-    color: #fff;
-    font-size: 1.7rem;
-    font-weight: 600;
-    margin-left: 23px;
-    white-space: nowrap;
-    opacity: 0;
-    transition: opacity 0.4s ease;
+.header h1 {
+  font-size: 2.5rem;
+  color: #240d29;
+  margin-bottom: 10px;
 }
 
-.sidebar:hover .sidebarHeader h2 {
-    opacity: 1;
+.profile {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
 }
 
-.sidebarLinks h4 {
-    color: #fff;
-    white-space: nowrap;
-    position: relative;
-    margin: 10px 0;
-    opacity: 0;
-    transition: opacity 0.4s ease;
+.profile img {
+  border-radius: 50%;
+  margin-right: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.sidebar:hover .sidebarLinks h4 {
-    opacity: 1;
+.profile .name {
+  font-size: 1.8rem;
+  color: #c143da;
+  font-weight: bold;
 }
 
-.sidebarLinks h4 span {
-    opacity: 0;
-    transition: opacity 0.4s ease;
+.metrics {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-bottom: 30px;
 }
 
-.sidebar:hover .sidebarLinks h4 span {
-    opacity: 1;
-    color: rgb(164, 162, 26);
+.metricItem {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  width: 30%;
+  transition: transform 0.3s;
 }
 
-.sidebarLinks .menuSeperator {
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    height: 1px;
-    transform: translateY(-50%);
-    transform: scaleX(1);
-    transition: 0.2s;
-    transform-origin: right;
+.metricItem:hover {
+  transform: translateY(-5px);
 }
 
-.sidebar:hover .sidebarLinks .menuSeperator {
-    transform: scaleX(0);
-    transition-delay: 0s;
+.metricItem h2 {
+  font-size: 1.2rem;
+  color: #240d29;
+  margin-bottom: 10px;
 }
 
-.sidebarLinks {
-    list-style: none;
-    height: 80%;
-    margin-top: 20px;
-    scrollbar-width: none;
-    overflow-y: auto;
+.metricItem p {
+  font-size: 2rem;
+  color: #c143da;
+  font-weight: bold;
 }
 
-.sidebarLinks::-webkit-scrollbar {
-    display: none;
+.recentActivity, .notifications, .quickLinks, .searchBar, .toDoList, .recentMessages, .statsGraph, .trendingTopics, .calendar {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 20px;
 }
 
-.sidebarLinks li .icon {
-    width: 24px;
-    height: 24px;
-    margin-right: 10px;
+.recentActivity h2, .notifications h2, .quickLinks h2, .searchBar h2, .toDoList h2, .recentMessages h2, .statsGraph h2, .trendingTopics h2, .calendar h2 {
+  font-size: 1.8rem;
+  color: #240d29;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #c143da;
+  padding-bottom: 5px;
 }
 
-.sidebarLinks li .title {
-    display: none;
+.activityList, .notificationList, .quickLinksList, .toDoListItems, .messagesList, .trendingList, .calendarItems {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.sidebar:hover .sidebarLinks li .title {
-    display: inline;
+.activityList li, .notificationList li, .quickLinksList li, .toDoListItems li, .messagesList li, .trendingList li, .calendarItems li {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
 }
 
-.sidebarLinks li a {
-    display: flex;
-    align-items: center;
-    color: #fff;
-    white-space: nowrap;
-    padding: 15px 10px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: 0.2s ease;
+.activityList li:last-child, .notificationList li:last-child, .quickLinksList li:last-child, .toDoListItems li:last-child, .messagesList li:last-child, .trendingList li:last-child, .calendarItems li:last-child {
+  border-bottom: none;
 }
 
-.sidebarLinks li a:hover {
-    color: #161a2d;
-    border-radius: 4px;
-    background: #fff;
+.quickLinks a {
+  display: block;
+  background-color: #240d29;
+  color: #fff;
+  text-align: center;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
-.userAccount {
-    padding: 2px 10px;
-    margin-top: 10px;
-    margin-left: -10px;
-    margin-bottom: 40px;
+.quickLinks a:hover {
+  background-color: #c143da;
+  transform: translateY(-3px);
 }
 
-.userProfile {
-    align-items: center;
-    display: flex;
-    color: #161a2d;
-    gap: 0 15px;
+.searchBar input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
 }
 
-.profilePic {
-    width: 40px;
-    height: 40px;
-    border: 2px solid #fff transparent;
-    border-radius: 50%;
+.toDoList input, .toDoList button {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  margin-right: 10px;
 }
 
-.userProfile h3 {
-    font-weight: 600;
-    font-size: 0.775rem;
-    color: #bcc1cf;
+.toDoList button {
+  background-color: #240d29;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
-.userProfile span {
-    color: #fff;
+.toDoList button:hover {
+  background-color: #c143da;
+  transform: scale(1.05);
 }
-
-.userDetails {
-    display: none;
-}
-
-.sidebar:hover .userDetails {
-    display: block;
-}
-
-.sidebar:hover .userProfile h3, .sidebar:hover .userProfile span {
-    display: block;
-}
-
-.sidebar:hover .userAccount {
-    background: #0c0000;
-    border-radius: 4px;
-} */

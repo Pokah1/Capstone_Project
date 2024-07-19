@@ -8,16 +8,16 @@ import supabase from '@/lib/supabaseClients';
 import { useRouter } from 'next/navigation';
 import Logo from '@/assets/comapnyLogo.png';
 import profileImage from '@/app/componetnts/assets/profile-pic.jpg';
-import dashboardIcon from '@/app/Dashboard/assets/dashboard.svg';
-import analyticsIcon from '@/app/Dashboard/assets/analytics.svg';
-import contentIcon from '@/app/Dashboard/assets/content.svg';
-import discoverIcon from '@/app/Dashboard/assets/discover.svg';
-import categoriesIcon from '@/app/Dashboard/assets/category.svg';
-import notificationIcon from '@/app/Dashboard/assets/notification.svg';
-import profileIcon from '@/app/Dashboard/assets/profile.svg';
-import settingsIcon from '@/app/Dashboard/assets/settings.svg';
-import logoutIcon from '@/app/Dashboard/assets/logout.svg';
-import socialIcon from '@/app/Dashboard/assets/socials.svg';
+import dashboardIcon from '@/assets/dashboard.svg'
+import analyticsIcon from '@/assets/analytics.svg';
+import contentIcon from '@/assets/content.svg';
+import discoverIcon from '@/assets/discover.svg';
+import categoriesIcon from '@/assets/category.svg';
+import notificationIcon from '@/assets/notification.svg';
+import profileIcon from '@/assets/profile.svg';
+import settingsIcon from '@/assets/settings.svg';
+import logoutIcon from '@/assets/logout.svg';
+import socialIcon from '@/assets/socials.svg'
 
 interface SideNavProps {
   id?: string;
@@ -74,35 +74,35 @@ const SideNav : React.FC<SideNavProps>= ({ id }: { id?: string }) => {
     { 
       title: 'Dashboard', 
       icon: dashboardIcon,
-      onClick: () => router.push('/Dashboard')
+      onClick: () => router.push('/dashboard')
       // Redirect to the DashboardPage
     },
     { title: 'Analytics', icon: analyticsIcon,
-      onClick: () => router.push('Analytics')
+      onClick: () => router.push('analytics')
      },
     { title: 'Content', icon: contentIcon,
-      onClick: () => router.push('Content')
+      onClick: () => router.push('content')
      },
     { title: 'Discover', icon: discoverIcon,
-   onClick: () => router.push('Discover')
+   onClick: () => router.push('discover')
      },
     { title: 'Categories', icon: categoriesIcon,
-    onClick: () => router.push('Categories')
+    onClick: () => router.push('categories')
      },
     { title: 'Socials', icon: socialIcon,
-      onClick: () => router.push('Socials')
+      onClick: () => router.push('socials')
      },
     { title: 'Notification', icon: notificationIcon,
-     onClick: () => router.push('Notification') 
+     onClick: () => router.push('notification') 
      }
   ];
 
   const accountItems: AccountItems[] = [
     { title: 'Profile', icon: profileIcon,
-      onClick: () => router.push('Profile')
+      onClick: () => router.push('profile')
     },
     { title: 'Settings', icon: settingsIcon,
-      onClick: () => router.push('Settings')
+      onClick: () => router.push('settings')
      },
     { title: 'Sign Out', icon: logoutIcon, onClick: signOut }
   ];
@@ -111,7 +111,10 @@ const SideNav : React.FC<SideNavProps>= ({ id }: { id?: string }) => {
     <main className="container">
       <aside className={styles.sidebar}>
         <div className={styles.sidebarHeader}>
+          <Link href='/'>
           <Image className={styles.logo} src={Logo} alt="logo" />
+          </Link>
+          
           <h2>Chatter</h2>
         </div>
         {/* Sidebar content */}
@@ -138,10 +141,10 @@ const SideNav : React.FC<SideNavProps>= ({ id }: { id?: string }) => {
           {/* Render account items */}
           {accountItems.map((item, index) => (
             <li key={index}>
-              <Link href="#" onClick={item.onClick}>
+              <a href="#" onClick={item.onClick}>
                 <item.icon className={`${styles.icon} ${item.title}Icon`} />
                 <span className={styles.title}>{item.title}</span>
-              </Link>
+              </a>
             </li>
           ))}
         </ul>
