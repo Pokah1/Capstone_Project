@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTypewriter, Cursor } from 'react-simple-typewriter';
 import Link from "next/link";
 import Image from 'next/image';
@@ -9,12 +9,30 @@ import Footer from "./componetnts/footer";
 
 const HomePage: React.FC = () => {
   const [text] = useTypewriter({
-    words: ["Connect with Authors.", "Discover Amazing Content.", "Bring your Ideas into Reality."],
+    words: [
+      'Connect with Authors.',
+      'Discover Amazing Content.',
+      'Bring your Ideas into Reality.',
+    ],
     loop: 0,
     typeSpeed: 200,
     delaySpeed: 11,
   });
 
+  const [showNavbarBackground, setShowNavbarBackground] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      setShowNavbarBackground(scrollTop > 0); // Toggle background based on scroll position
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   return (
     <>
 
@@ -22,7 +40,7 @@ const HomePage: React.FC = () => {
     <main id="root" className={styles.container}>
       <article className={styles.pageContainer}>
       
-        <nav className={styles.nav}>
+        <nav  className={`${styles.nav} ${showNavbarBackground ? styles.navBackground : ''}`}>
    
           <Image src={Logo} alt='companyLogo' className={styles.logo}/>
      
@@ -51,6 +69,11 @@ const HomePage: React.FC = () => {
                 Support
               </Link>
             </li>
+            <button className={styles.signinButton}>
+            <Link href={'/FormPage'} className={styles.signup} >
+              Sign-Up
+            </Link>
+            </button>
             
           </ul>
         </nav>
@@ -81,8 +104,9 @@ const HomePage: React.FC = () => {
         </section>
         
       </article>
-    
+
     </main>
+    
       <Footer />
       </>
   );

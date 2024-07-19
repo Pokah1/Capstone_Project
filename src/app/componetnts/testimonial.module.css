@@ -17,41 +17,48 @@
   
   .wrapper {
     display: flex;
-    position: relative;
-    transition: transform 1s ease-in-out;
-    animation: slideAnimation 15s linear infinite;
+  transition: transform 1s ease-in-out;
+ 
   }
   
   .slide {
     flex: 0 0 100%;
     opacity: 0;
     transition: opacity 1s ease-in-out;
-    
+    position: absolute;
+    width: 100%;
+    transform: translateX(100%);
   }
   
   .slide.active {
     opacity: 1;
+    position: relative;
+    animation: slideIn 1s forwards;
   }
   
-  @keyframes slideAnimation {
+  
+  @keyframes slideIn {
     0% {
+      opacity: 0;
       transform: translateX(100%);
     }
     100% {
-      transform: translateX(-100%);
+      opacity: 1;
+      transform: translateX(0);
     }
   }
   
   .quote {
     font-size: 1.5rem;
     opacity: 0;
-    animation: fadeIn 3s forwards;
+    animation: fadeIn 1s forwards;
   }
   
   .name {
 font-weight: 600;
+font-size: 1.3rem;
     opacity: 0;
-    animation: fadeIn 3s forwards;
+    animation: fadeIn 1s forwards;
   }
   
   @keyframes fadeIn {
@@ -64,3 +71,4 @@ font-weight: 600;
       transform: translateY(0);
     }
   }
+ 

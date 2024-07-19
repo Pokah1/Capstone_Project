@@ -12,10 +12,7 @@
   padding: 0 1rem;
 }
 
-/* .footer {
- 
- 
-  }
+
   */
   .flexContainer {
     display: flex;
@@ -71,16 +68,20 @@
   
   .socialIcons {
     display: flex;
-    gap: 2rem;
+    gap: 1.5rem;
    
   }
   
   
   .icon {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
   }
   
+  .icon:hover{
+    filter: brightness(1.6);
+  
+  }
   .form {
     display: flex;
     flex-direction: column;

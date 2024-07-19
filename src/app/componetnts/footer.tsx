@@ -52,11 +52,14 @@ const Footer: React.FC = () => {
             name: "Samuel Umoh, Redaer",
             content: "This Is quite phenominal project."
           },
-        // Add more testimonials as needed
+          {
+            name: "Lisa Williams, Editor",
+            content: "I've been using Chatter to engage with my audience and connect with them. The platform has been a game-changer for me as a writer."
+          },
+         
       ];
     
-// Fix this bug tomorro
-// Testimonials are not displaying as they shoud be displayed
+
 // work on animations for the footer component
 //  
 
@@ -64,7 +67,7 @@ const Footer: React.FC = () => {
     <footer className={styles.footer}>
       <div className={styles.container}>
         <section className={styles.section}>
-          <Image src={Logo} alt='company Logo' className={styles.logoIcon} />
+          <Image src={Logo} alt='company Logo' className={styles.logoIcon} priority/>
 
           <div className={styles.flexContainer}>
             {/* Quick Links */}

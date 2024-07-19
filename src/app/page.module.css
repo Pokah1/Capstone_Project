@@ -6,10 +6,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins";
+  
 }
 .container {
-  background-image: url("/assets/homepage.jpg"); /* Use the path relative to the public folder */
+  background-image: url("/assets/homepage.jpg"); 
   background-size: cover;
   background-position: center;
   min-height: 100vh;
@@ -32,25 +32,30 @@
 .header {
   color: #917023;
   margin-top: 20px;
-  /* flex: 1; */
 }
 
 .nav {
-  /* background-color: rgb(35, 35, 57); */
-  width: 70%;
-  margin-top: 40px;
+  padding: 0 70px;
+  width: 100%;
   display: flex;
-
   justify-content: space-between;
+  position: fixed;
+  top: 0;
+  background-color: transparent; 
+  transition: background-color 0.3s ease-in-out;
 }
 
+.navBackground{
+  background-color: #0c1137
+}
 .nav ul {
   display: flex;
-  justify-content: flex-end; 
-  list-style-type: none; 
+  justify-content: flex-end;
+  list-style-type: none;
   margin: 0;
   padding: 0;
   margin-top: 20px;
+
 }
 
 .nav li {
@@ -62,8 +67,8 @@
 }
 
 .logo {
-  width: 15%;
-  height: 15%;
+  width: 10%;
+  height: 10%;
 }
 .title {
   width: 100%;
@@ -76,15 +81,16 @@
 .highlight {
   display: block;
   color: #917023;
-  font-size: 2.5rem; 
+  font-size: 2.5rem;
   margin-top: 10px;
   font-style: italic;
 }
 
 .section {
-  margin: 30px 50px;
+  margin: 120px 50px;
   padding: 20px;
 }
+
 
 .section p {
   margin-bottom: 10px;
@@ -94,14 +100,44 @@
   margin-bottom: 20px;
   margin-top: 30px;
   line-height: 35px;
-  
 }
 
 .link {
-  color: #007bff;
-  text-decoration: underline;
+  color: #917023;
+  text-decoration: none;
 }
 
 .link:hover {
-  color: #0056b3;
+  color: #fff;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+  text-decoration-color: #ce9b24;
 }
+
+.signinButton {
+  margin-top: -8px;
+  margin-left: 25px;
+  background-color: transparent;
+  border: 0.2px solid rgb(162, 158, 158);
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100px;
+  height: 40px;
+}
+
+.signup {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: color 0.2s ease;
+}
+
+.signinButton:hover {
+  background-color: #fff;
+  transition: background-color 0.2s ease;
+}
+
+.signinButton:hover .signup {
+  color: #000;
+}
+
