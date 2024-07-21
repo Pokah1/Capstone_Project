@@ -1,0 +1,33 @@
+.cover {
+    position: relative;
+    width: 100%;
+    height: 60svb;
+    background-color: #d1d5db; /* Equivalent to bg-neutral-300 */
+  
+  }
+  
+  .image {
+    width: 10%;
+
+    object-fit: cover;
+  
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+   
+
+  }
+  .background{
+    position: absolute;
+    width: 20%;
+    height: 20%;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center; /* Flexbox centering */
+    align-items: center; /* Flexbox centering */
+
+  }
+ 
+  
+ 

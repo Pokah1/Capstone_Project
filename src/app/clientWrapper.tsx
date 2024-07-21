@@ -1,10 +1,10 @@
-// app/ClientWrapper.tsx
 'use client';
 
 import { usePathname } from 'next/navigation';
 import { useEffect, useState, useRef } from 'react';
 import SideNav from "@/app/componetnts/sideNav"; // Adjust path as necessary
 import styles from "@/app/clientWrapper.module.css";
+// import "@uploadthing/react/styles.css"; // Import the CSS here
 
 const excludedPaths = ['/', '/formpage']; // Ensure paths match your actual routes
 

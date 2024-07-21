@@ -1,5 +1,3 @@
-// next.config.mjs
-
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
@@ -14,11 +12,32 @@ const nextConfig = {
     return config;
   },
   images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'utfs.io',
+      },
+      {
+        protocol: 'https',
+        hostname: 'unsplash.com',
+        pathname: '/photos/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'source.unsplash.com',
+      },
+    ],
     domains: [
-      'avatars.githubusercontent.com', // GitHub avatars
-      'lh3.googleusercontent.com',     // Google user profiles
-      'appleid.apple.com',             
-     
+      'avatars.githubusercontent.com',
+      'lh3.googleusercontent.com',
+      'appleid.apple.com',
+      'unsplash.com',
+      'images.unsplash.com',
+      'source.unsplash.com',
     ],
   },
 };

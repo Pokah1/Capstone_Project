@@ -1,3 +1,4 @@
+// Dashboard.tsx
 'use client'
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -7,6 +8,7 @@ import styles from '@/app/Dashboard/styles.module.css';
 import profileIcon from '@/assets/profile-pic.jpg';
 import supabase from '@/lib/supabaseClients';  // Correct the import statement
 import { User } from '@supabase/supabase-js';
+import PieChart from '@/app/componetnts/charts/PieChart';
 
 
 const Dashboard = () => {
@@ -32,6 +34,18 @@ const Dashboard = () => {
 
   if (loading) return <p>Loading...</p>;
 
+
+
+  const pieData = {
+    labels: ['Red', 'Blue', 'Yellow'],
+    datasets: [
+      {
+        data: [300, 50, 100],
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+      },
+    ],
+  };
   return (
     <div className={styles.dashboard}>
       <Link href="/content">
@@ -61,6 +75,9 @@ const Dashboard = () => {
           <h2>Likes</h2>
           <p>789</p>
         </div>
+      </section>
+      <section>
+        <PieChart data={pieData} />  {/* Pass the pieData as a prop */}
       </section>
       <section className={styles.recentActivity}>
         <h2>Recent Activity</h2>

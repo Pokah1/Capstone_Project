@@ -2,6 +2,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { metadata } from './metadata';
+import "@uploadthing/react/styles.css";
 import ClientWrapper from '@/app/clientWrapper';
 
 const inter = Inter({ subsets: ["latin"] });

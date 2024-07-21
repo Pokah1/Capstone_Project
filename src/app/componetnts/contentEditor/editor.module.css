@@ -1,0 +1,14 @@
+.customMargin {
+    margin-left: -54px;
+    margin-right: -54px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    .customMargin {
+      margin-left: -32px; /* Adjust for smaller screens */
+      margin-right: -32px; /* Adjust for smaller screens */
+    }
+  }
+  

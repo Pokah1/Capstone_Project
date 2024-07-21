@@ -1,7 +1,7 @@
 .sidenav {
-    width: 80px;
-    transition: width 0.3s ease;
-  }
+  width: 80px; 
+  transition: width 0.3s ease;
+}
   
   .sidenav:hover {
     width: 200px;
